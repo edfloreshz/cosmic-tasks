@@ -313,8 +313,9 @@ impl Application for App {
                         .on_press(Message::DialogUpdate(DialogPage::Icon(icon_name.to_string())))
                         .into()
                 }).collect();
-                let mut dialog = widget::dialog(fl!("icon-select"))
+                widget::dialog(fl!("icon-select"))
                     .body(fl!("icon-select-body"))
+                    .icon(widget::icon::from_name(icon.as_str()).size(32).icon())
                     .primary_action(
                         widget::button::suggested(fl!("ok"))
                             .on_press_maybe(Some(Message::DialogComplete)),
@@ -322,13 +323,7 @@ impl Application for App {
                     .secondary_action(
                         widget::button::standard(fl!("cancel")).on_press(Message::DialogCancel),
                     )
-                    .control(widget::container(scrollable(widget::flex_row(icon_buttons))).height(Length::Fixed(200.0)));
-
-                if !icon.is_empty() {
-                    dialog = dialog.icon(widget::icon::from_name(icon.as_str()).size(32).icon());
-                }
-
-                dialog
+                    .control(widget::container(scrollable(widget::flex_row(icon_buttons))).height(Length::Fixed(200.0)))
             }
         };
 
